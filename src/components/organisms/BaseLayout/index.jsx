@@ -15,11 +15,10 @@ import styles from "./styles.module.css";
  */
 export const BaseLayout = ({ children, title }) => (
   <div className={styles.container}>
-    <h1 className={styles.title}>{title}</h1>
-    {/* リンクエリア */}
     <section className={styles.common}>
       <Navigation />
     </section>
+    <h1 className={styles.title}>{title}</h1>
     {children}
   </div>
 );
