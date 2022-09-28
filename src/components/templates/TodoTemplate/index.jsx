@@ -3,6 +3,7 @@
  *
  * @package components
  */
+import { useMemo, useState } from "react";
 import { BaseLayout } from "../../organisms/BaseLayout";
 import { InputForm } from "../../atoms/InputForm";
 import { TodoList } from "../../organisms/TodoLlist";
@@ -16,12 +17,28 @@ import styles from "./styles.module.css";
  */
 export const TodoTemplate = () => {
   // コンテキストから状態とロジックを呼び出してコンポーネントにあてがう
-  const {
-    searchKeyword,
-    showTodoList,
-    handleDeleteTodo,
-    handleChangeSearchKeyword,
-  } = useTodoContext();
+  const { originTodoList, deleteTodo } = useTodoContext();
+
+  /* 検索キーワード */
+  const [searchKeyword, setSearchKeyword] = useState("");
+  /* 表示用TodoList */
+  const showTodoList = useMemo(() => {
+    const regexp = new RegExp("^" + searchKeyword, "i");
+    return originTodoList.filter((todo) => {
+      // 検索キーワードに部分一致したTodoだけを一覧表示する
+      return todo.title.match(regexp);
+    });
+    // useMemoの第二引数([originTodoList, searchKeyword])に依存して処理が実行される
+    // originTodoListとsearchKeywordの値が変更される度にfilterの検索処理が実行
+    // ただし結果が前回と同じならキャッシュを返却し処理は実行されない(無駄な処理を省いている)
+    // 詳しくはuseMemoを調べてください。
+  }, [originTodoList, searchKeyword]);
+
+  /**
+   * 検索キーワード更新処理
+   * @param {*} e
+   */
+  const handleChangeSearchKeyword = (e) => setSearchKeyword(e.target.value);
 
   return (
     <BaseLayout title={"TodoList"}>
@@ -31,16 +48,13 @@ export const TodoTemplate = () => {
           <InputForm
             inputValue={searchKeyword}
             placeholder={"Search Keyword"}
-            handleChangeValue={handleChangeSearchKeyword}
+            onChange={handleChangeSearchKeyword}
           />
         </div>
         {/* Todoリスト一覧表示 */}
         <div className={styles.area}>
           {showTodoList.length > 0 && (
-            <TodoList
-              todoList={showTodoList}
-              handleDeleteTodo={handleDeleteTodo}
-            />
+            <TodoList todoList={showTodoList} handleDeleteTodo={deleteTodo} />
           )}
         </div>
       </div>

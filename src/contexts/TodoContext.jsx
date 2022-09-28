@@ -18,26 +18,14 @@ const TodoContext = createContext({});
  */
 export const TodoProvider = ({ children }) => {
   // カスタムフックから状態とロジックを呼び出してコンテキストプロバイダーにあてがう
-  const {
-    addInputValue,
-    searchKeyword,
-    showTodoList,
-    onChangeAddInputValue,
-    handleAddTodo,
-    handleDeleteTodo,
-    handleChangeSearchKeyword,
-  } = useTodo();
+  const { originTodoList, addTodo, deleteTodo } = useTodo();
 
   return (
     <TodoContext.Provider
       value={{
-        addInputValue,
-        searchKeyword,
-        showTodoList,
-        onChangeAddInputValue,
-        handleAddTodo,
-        handleDeleteTodo,
-        handleChangeSearchKeyword,
+        originTodoList,
+        addTodo,
+        deleteTodo,
       }}
     >
       {children}

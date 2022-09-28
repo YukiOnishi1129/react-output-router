@@ -4,11 +4,14 @@
  * @package components
  */
 import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./styles.module.css";
+import { useTodoContext } from "../../../contexts/TodoContext";
 import { BaseLayout } from "../../organisms/BaseLayout";
 import { InputForm } from "../../atoms/InputForm";
 import { TextArea } from "../../atoms/TextArea";
 import { CommonButton } from "../../atoms/CommonButton";
-import styles from "./styles.module.css";
+import { NAVIGATION_LIST } from "../../../constants/navigations";
 
 /**
  * TodoCreateTemplate
@@ -16,10 +19,11 @@ import styles from "./styles.module.css";
  * @constructor
  */
 export const TodoCreateTemplate = () => {
+  const navigate = useNavigate();
+  const { addTodo } = useTodoContext();
   /* local state */
   const [inputTitle, setInputTitle] = useState("");
   const [inputContent, setInputContent] = useState("");
-
   /**
    * 「title」変更処理
    * @type {function(*): void}
@@ -38,10 +42,20 @@ export const TodoCreateTemplate = () => {
     []
   );
 
-  const handleCreateTodo = useCallback((e) => {
-    e.preventDefault();
-    console.log("aaaa");
-  }, []);
+  /**
+   * Todo追加処理
+   * @type {(function(*): void)|*}
+   */
+  const handleCreateTodo = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (inputTitle !== "" && inputContent !== "") {
+        addTodo(inputTitle, inputContent);
+        navigate(NAVIGATION_LIST.TOP);
+      }
+    },
+    [addTodo, inputTitle, inputContent, navigate]
+  );
 
   return (
     <BaseLayout title={"Create Todo"}>
