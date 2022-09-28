@@ -3,7 +3,7 @@
  *
  * @package components
  */
-import { Navigation } from "../../molecules/Navigation";
+import { BaseLayout } from "../../organisms/BaseLayout";
 import { InputForm } from "../../atoms/InputForm";
 import { TodoList } from "../../organisms/TodoLlist";
 import { useTodoContext } from "../../../contexts/TodoContext.jsx";
@@ -24,29 +24,26 @@ export const TodoTemplate = () => {
   } = useTodoContext();
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Todo List</h1>
-      {/* リンクエリア */}
-      <section className={styles.common}>
-        <Navigation />
-      </section>
-      {/* Todo検索フォームエリア */}
-      <section className={styles.common}>
-        <InputForm
-          inputValue={searchKeyword}
-          placeholder={"Search Keyword"}
-          handleChangeValue={handleChangeSearchKeyword}
-        />
-      </section>
-      {/* Todoリスト一覧表示 */}
-      <section className={styles.common}>
-        {showTodoList.length > 0 && (
-          <TodoList
-            todoList={showTodoList}
-            handleDeleteTodo={handleDeleteTodo}
+    <BaseLayout title={"TodoList"}>
+      <div className={styles.container}>
+        {/* Todo検索フォームエリア */}
+        <div className={styles.area}>
+          <InputForm
+            inputValue={searchKeyword}
+            placeholder={"Search Keyword"}
+            handleChangeValue={handleChangeSearchKeyword}
           />
-        )}
-      </section>
-    </div>
+        </div>
+        {/* Todoリスト一覧表示 */}
+        <div className={styles.area}>
+          {showTodoList.length > 0 && (
+            <TodoList
+              todoList={showTodoList}
+              handleDeleteTodo={handleDeleteTodo}
+            />
+          )}
+        </div>
+      </div>
+    </BaseLayout>
   );
 };
