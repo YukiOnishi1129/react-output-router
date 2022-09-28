@@ -3,7 +3,7 @@
  *
  * @package components
  */
-import { Navigation } from "../../organisms/Navigation";
+import { Navigation } from "../../molecules/Navigation";
 import { InputForm } from "../../atoms/InputForm";
 import { TodoList } from "../../organisms/TodoLlist";
 import { useTodoContext } from "../../../contexts/TodoContext.jsx";
