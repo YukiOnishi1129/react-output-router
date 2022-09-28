@@ -18,13 +18,14 @@ const TodoContext = createContext({});
  */
 export const TodoProvider = ({ children }) => {
   // カスタムフックから状態とロジックを呼び出してコンテキストプロバイダーにあてがう
-  const { originTodoList, addTodo, deleteTodo } = useTodo();
+  const { originTodoList, addTodo, updateTodo, deleteTodo } = useTodo();
 
   return (
     <TodoContext.Provider
       value={{
         originTodoList,
         addTodo,
+        updateTodo,
         deleteTodo,
       }}
     >

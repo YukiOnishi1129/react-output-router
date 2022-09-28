@@ -41,29 +41,60 @@ export const useTodo = () => {
   );
 
   /**
+   * Todo更新処理
+   * @param {*} id
+   * @param {*} title
+   * @param {*} content
+   * @type {(function(*, *, *): void)|*}
+   */
+  const updateTodo = useCallback(
+    (id, title, content) => {
+      const updatedTodoList = originTodoList.map((todo) => {
+        if (id === todo.id) {
+          return {
+            id: todo.id,
+            title: title,
+            content: content,
+          };
+        }
+
+        return todo;
+      });
+      setOriginTodoList(updatedTodoList);
+    },
+    [originTodoList]
+  );
+
+  /**
    * Todo削除処理
    * @param { number } targetId
    * @param { string }targetTitle
    */
-  const deleteTodo = (targetId, targetTitle) => {
-    if (window.confirm(`「${targetTitle}」のtodoを削除しますか？`)) {
-      // 削除するid以外のtodoリストを再編集
-      // filterを用いた方法
-      const newTodoList = originTodoList.filter((todo) => todo.id !== targetId);
+  const deleteTodo = useCallback(
+    (targetId, targetTitle) => {
+      if (window.confirm(`「${targetTitle}」のtodoを削除しますか？`)) {
+        // 削除するid以外のtodoリストを再編集
+        // filterを用いた方法
+        const newTodoList = originTodoList.filter(
+          (todo) => todo.id !== targetId
+        );
 
-      // 削除するTodoの配列番号を取り出してspliceで削除する方法もある
-      // const newTodoList = [...todoList];
-      // const deleteIndex = newTodoList.findIndex((todo) => todo.id === targetId);
-      // newTodoList.splice(deleteIndex, 1);
+        // 削除するTodoの配列番号を取り出してspliceで削除する方法もある
+        // const newTodoList = [...todoList];
+        // const deleteIndex = newTodoList.findIndex((todo) => todo.id === targetId);
+        // newTodoList.splice(deleteIndex, 1);
 
-      // todoを削除したtodo listで更新
-      setOriginTodoList(newTodoList);
-    }
-  };
+        // todoを削除したtodo listで更新
+        setOriginTodoList(newTodoList);
+      }
+    },
+    [originTodoList]
+  );
 
   return {
     originTodoList,
     addTodo,
+    updateTodo,
     deleteTodo,
   };
 };
