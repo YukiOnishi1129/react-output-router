@@ -3,10 +3,11 @@
  *
  * @package components
  */
+import { BaseLayout } from "../../organisms/BaseLayout";
 import { InputForm } from "../../atoms/InputForm";
-import { AddTodo } from "../../organisms/AddTodo";
 import { TodoList } from "../../organisms/TodoLlist";
-import { useTodoContext } from "../../../contexts/TodoContext.jsx";
+import { useTodoContext } from "../../../contexts/TodoContext";
+import { useTodoTemplate } from "./useTodoTemplate";
 import styles from "./styles.module.css";
 
 /**
@@ -16,44 +17,29 @@ import styles from "./styles.module.css";
  */
 export const TodoTemplate = () => {
   // コンテキストから状態とロジックを呼び出してコンポーネントにあてがう
-  const {
-    addInputValue,
-    searchKeyword,
-    showTodoList,
-    onChangeAddInputValue,
-    handleAddTodo,
-    handleDeleteTodo,
-    handleChangeSearchKeyword,
-  } = useTodoContext();
+  const { originTodoList, deleteTodo } = useTodoContext();
+
+  const [{ searchKeyword, showTodoList }, { handleChangeSearchKeyword }] =
+    useTodoTemplate({ originTodoList });
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Todo List</h1>
-      {/* Todo追加エリア */}
-      <section className={styles.common}>
-        <AddTodo
-          addInputValue={addInputValue}
-          onChangeTodo={onChangeAddInputValue}
-          handleAddTodo={handleAddTodo}
-        />
-      </section>
-      {/* Todo検索フォームエリア */}
-      <section className={styles.common}>
-        <InputForm
-          inputValue={searchKeyword}
-          placeholder={"Search Keyword"}
-          handleChangeValue={handleChangeSearchKeyword}
-        />
-      </section>
-      {/* Todoリスト一覧表示 */}
-      <section className={styles.common}>
-        {showTodoList.length > 0 && (
-          <TodoList
-            todoList={showTodoList}
-            handleDeleteTodo={handleDeleteTodo}
+    <BaseLayout title={"TodoList"}>
+      <div className={styles.container}>
+        {/* Todo検索フォームエリア */}
+        <div className={styles.area}>
+          <InputForm
+            value={searchKeyword}
+            placeholder={"Search Keyword"}
+            onChange={handleChangeSearchKeyword}
           />
-        )}
-      </section>
-    </div>
+        </div>
+        {/* Todoリスト一覧表示 */}
+        <div className={styles.area}>
+          {showTodoList.length > 0 && (
+            <TodoList todoList={showTodoList} handleDeleteTodo={deleteTodo} />
+          )}
+        </div>
+      </div>
+    </BaseLayout>
   );
 };
