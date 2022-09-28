@@ -1,7 +1,7 @@
 # react-output-index
 Reactアウトプットサンプル
 
-react-index-domw用いてSPA構成にしたアプリケーション
+react-index-dom用いてSPA構成にしたアプリケーション
 
 状態管理はcontext apiを使用
 
@@ -42,6 +42,8 @@ yarn dev
   - Todo一覧表示
   - Todo検索処理
   - Todo新規登録処理
+  - Todo詳細表示
+  - Todo編集処理
   - Todo削除処理
 
 ### 2-2. 構成技術
