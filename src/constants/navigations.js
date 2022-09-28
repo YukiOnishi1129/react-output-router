@@ -15,7 +15,7 @@ export const BASE_PATH = "/react-output-router";
  * @type {{TOP: string, CREATE: string, EDIT: string, DETAIL: string}}
  */
 export const NAVIGATION_LIST = {
-  TOP: `${BASE_PATH}`,
+  TOP: `${BASE_PATH}/`,
   DETAIL: `${BASE_PATH}/detail/:id`,
   CREATE: `${BASE_PATH}/create`,
   EDIT: `${BASE_PATH}/edit/:id`,

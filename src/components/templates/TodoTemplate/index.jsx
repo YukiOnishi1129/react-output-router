@@ -3,8 +3,8 @@
  *
  * @package components
  */
+import { Navigation } from "../../organisms/Navigation";
 import { InputForm } from "../../atoms/InputForm";
-import { AddTodo } from "../../organisms/AddTodo";
 import { TodoList } from "../../organisms/TodoLlist";
 import { useTodoContext } from "../../../contexts/TodoContext.jsx";
 import styles from "./styles.module.css";
@@ -17,11 +17,8 @@ import styles from "./styles.module.css";
 export const TodoTemplate = () => {
   // コンテキストから状態とロジックを呼び出してコンポーネントにあてがう
   const {
-    addInputValue,
     searchKeyword,
     showTodoList,
-    onChangeAddInputValue,
-    handleAddTodo,
     handleDeleteTodo,
     handleChangeSearchKeyword,
   } = useTodoContext();
@@ -29,13 +26,9 @@ export const TodoTemplate = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Todo List</h1>
-      {/* Todo追加エリア */}
+      {/* リンクエリア */}
       <section className={styles.common}>
-        <AddTodo
-          addInputValue={addInputValue}
-          onChangeTodo={onChangeAddInputValue}
-          handleAddTodo={handleAddTodo}
-        />
+        <Navigation />
       </section>
       {/* Todo検索フォームエリア */}
       <section className={styles.common}>

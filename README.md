@@ -1,7 +1,9 @@
 # react-output-router
 Reactアウトプットサンプル
 
-状態管理をcontext APIを使用した構成
+react-router-domw用いてSPA構成にしたアプリケーション
+
+状態管理はcontext apiを使用
 
 urlはこちら
 https://yukionishi1129.github.io/react-output-router/
@@ -45,6 +47,7 @@ yarn dev
 ### 2-2. 構成技術
 - react: 18.2.0
 - react-dom: 18.2.0
+- react-router-dom: 6.4.1
 - vite: 3.1.0
 - @fortawesome/react-fontawesom: 0.2.0
 - @fortawesome/free-solid-svg-icons: 6.2.0
