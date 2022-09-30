@@ -5,7 +5,7 @@
  */
 import { BaseLayout } from "../../organisms/BaseLayout";
 import { InputForm } from "../../atoms/InputForm";
-import { TodoList } from "../../organisms/TodoLlist";
+import { TodoList } from "../../organisms/TodoList";
 import { useTodoContext } from "../../../contexts/TodoContext";
 import { useTodoTemplate } from "./useTodoTemplate";
 import styles from "./styles.module.css";
